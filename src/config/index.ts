@@ -1,12 +1,6 @@
-import { bool } from "aws-sdk/clients/signer";
 import dotenv from "dotenv";
 
-process.env.NODE_ENV = "development";
-if (process.env.NODE_ENV === "development") {
-  dotenv.config({ path: ".env.dev" });
-} else if (process.env.NODE_ENV === "production") {
-  dotenv.config({ path: ".env.prod" });
-}
+dotenv.config();
 
 // Server connection
 export const port: any = process.env.PORT || "";
@@ -16,7 +10,7 @@ export const nodeEnv: any = process.env.NODE_ENV || "dev";
 
 // Database connection
 export const db: any = process.env.DATABASE || "";
-export const dbSSL: any = process.env.DB || ("" as unknown as boolean);
+export const dbSSL: any = process.env.DB_SSL || "";
 
 // JWT
 export const jwtSecret: any = process.env.JWT_SECRET || "";

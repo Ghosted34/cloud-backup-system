@@ -4,7 +4,7 @@ import { File } from "../models/file.js";
 import { Folder } from "../models/folder.js";
 
 import { db, dbSSL } from "./index.js";
-import { bool } from "aws-sdk/clients/signer.js";
+console.log({ dbSSL });
 
 class Database {
   public sequelize: Sequelize | undefined;
@@ -18,6 +18,7 @@ class Database {
   }
 
   private async connectToDB() {
+    console.log(this.POSTGRES_SSL === true, dbSSL === true, 1);
     try {
       this.sequelize = new Sequelize(this.POSTGRES_DB, {
         dialect: "postgres",
