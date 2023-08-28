@@ -10,12 +10,15 @@ pids
 
 # Dependency directories
 node_modules/
+dist/
 
 # Optional npm cache directory
 .npm
 
 # Environment files
 .env
+.env.dev
+.env.prod
 
 # Debug logs
 npm-debug.log*

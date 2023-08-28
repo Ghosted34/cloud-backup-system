@@ -40,6 +40,8 @@ router.get(
   FileController.streamMediaFile
 );
 
+router.get("/history", authenticate, isLoggedIn, FileController.getFileHistory);
+
 class FileRoutes extends BaseRoutes {
   public routes(): void {
     this.router.post(
@@ -74,6 +76,13 @@ class FileRoutes extends BaseRoutes {
       authenticate,
       isLoggedIn,
       FileController.streamMediaFile
+    );
+
+    this.router.get(
+      "/history",
+      authenticate,
+      isLoggedIn,
+      FileController.getFileHistory
     );
   }
 }

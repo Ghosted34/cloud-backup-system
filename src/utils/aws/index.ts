@@ -245,7 +245,6 @@ export const deleteFile = async (
 };
 
 export const deleteMultipleFiles = async (
-  req: any,
   filepaths: { Key: string }[]
 ): Promise<void> => {
   try {
@@ -253,6 +252,6 @@ export const deleteMultipleFiles = async (
 
     await s3.send(new DeleteObjectsCommand(params));
   } catch (error) {
-    logger.error(formatLog(req, "aws error"));
+    logger.error("aws error");
   }
 };

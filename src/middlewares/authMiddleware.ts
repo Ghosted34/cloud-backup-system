@@ -1,16 +1,18 @@
 import { Request, Response, NextFunction } from "express";
 import AppError from "../utils/AppError.js";
 import jwt, { Secret } from "jsonwebtoken";
-import { promisify } from "util";
 import { User } from "../models/user.js";
+import { jwtSecret } from "../config/index.js";
 
-const secret: Secret = process.env.JWT_SECRET as Secret;
+const secret: Secret = jwtSecret as Secret;
 
 export const authenticate = async (
   req: any,
   res: Response,
   next: NextFunction
 ) => {
+  console.log(req.cookies);
+
   try {
     let token: any;
     if (

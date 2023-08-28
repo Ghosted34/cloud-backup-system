@@ -2,8 +2,9 @@ import { Request, Response, NextFunction } from "express";
 import jwt, { Secret } from "jsonwebtoken";
 import AppError from "../utils/AppError.js";
 import { User } from "../models/user.js";
+import { jwtSecret } from "../config/index.js";
 
-const secret: Secret = process.env.JWT_SECRET as Secret;
+const secret: Secret = jwtSecret as Secret;
 export class UserService {
   static async getAllUsers(
     req: Request,

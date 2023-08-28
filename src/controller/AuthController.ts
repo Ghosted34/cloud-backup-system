@@ -25,7 +25,9 @@ export class AuthController {
 
     try {
       const user = await AuthService.signIn(req, res, next);
-      if (user) return sendToken(user, 201, res);
+      if (user) {
+        sendToken(user, 201, res);
+      }
     } catch (error: any) {
       console.log(error);
       errorResponse(res, 401, "User does not exist");

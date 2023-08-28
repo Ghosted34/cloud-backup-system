@@ -1,6 +1,5 @@
 import { format, createLogger, transports, addColors, Logger } from "winston";
-
-const nodeEnv: any = process.env.NODE_ENV;
+import { nodeEnv } from "../../config/index.js";
 
 const logger: Logger = createLogger({
   transports: [new transports.Console({ silent: nodeEnv === "test" })],

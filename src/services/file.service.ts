@@ -250,6 +250,38 @@ export class FileService {
     }
   }
 
+  static async fetchUserFileHistory(
+    req: any,
+    res: Response,
+    next: NextFunction
+  ): Promise<any> {
+    try {
+      const { user } = req;
+
+      if (!user) {
+        return next(new AppError("Please login", 401, { error: null }));
+      }
+
+      const files = await File.findAll({
+        where: { userId: user.id },
+        order: [["createdAt", "DESC"]],
+      });
+
+      const history = [];
+
+      for (const file of files) {
+        history.push(file.name);
+      }
+
+      return history;
+    } catch (error: any) {
+      console.log(error);
+      logger.error(formatLog(req, error.message));
+      errorResponse(res, error.statusCode, error.message);
+      return next(error);
+    }
+  }
+
   // To Admin Controller
   static async fetchAllFiles(
     req: any,
@@ -309,7 +341,7 @@ export class FileService {
       const unsafeFiles = await File.findAll({ where: { safe: false } });
       const filepaths = unsafeFiles.map((file) => ({ Key: file.key }));
 
-      await deleteMultipleFiles(req, filepaths);
+      await deleteMultipleFiles(filepaths);
 
       await File.destroy({ where: { safe: false } });
     } catch (error: any) {

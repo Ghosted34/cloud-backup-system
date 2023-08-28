@@ -75,4 +75,17 @@ export class FileController {
       return next(error);
     }
   }
+
+  static async getFileHistory(req: any, res: Response, next: NextFunction) {
+    logger.info(`Getting ${req.user?.name}'s`);
+    logger.info(formatLog(req, `Getting ${req.user?.name}'s`));
+
+    try {
+      const history = await FileService.fetchUserFileHistory(req, res, next);
+      successResponse(res, 201, "File History Gotten", history);
+    } catch (error) {
+      console.log(error);
+      return next(error);
+    }
+  }
 }

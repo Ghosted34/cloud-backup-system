@@ -3,14 +3,14 @@ import { User } from "../models/user.js";
 import { File } from "../models/file.js";
 import { Folder } from "../models/folder.js";
 
+import { db, dbSSL } from "./index.js";
+import { bool } from "aws-sdk/clients/signer.js";
+
 class Database {
   public sequelize: Sequelize | undefined;
 
-  private POSTGRES_DB = process.env.DATABASE as string;
-  private POSTGRES_HOST = process.env.HOST as string;
-  private POSTGRES_USER = process.env.USER as string;
-  private POSTGRES_PASSWORD = process.env.PASSWORD as string;
-  private POSTGRES_PORT = Number(process.env.DB_PORT) as number;
+  private POSTGRES_DB = db as string;
+  private POSTGRES_SSL = dbSSL as boolean;
 
   constructor() {
     this.connectToDB();
@@ -19,14 +19,13 @@ class Database {
 
   private async connectToDB() {
     try {
-      this.sequelize = new Sequelize({
-        database: this.POSTGRES_DB,
-        username: this.POSTGRES_USER,
-        password: `${this.POSTGRES_PASSWORD}`,
-        host: this.POSTGRES_HOST,
-        port: this.POSTGRES_PORT,
+      this.sequelize = new Sequelize(this.POSTGRES_DB, {
         dialect: "postgres",
         models: [User, File, Folder],
+        dialectOptions: {
+          ssl: this.POSTGRES_SSL,
+          native: true,
+        },
       });
 
       await this.sequelize.authenticate();
@@ -35,6 +34,7 @@ class Database {
     } catch (error) {
       console.log("❌ unable to connect to database   ");
       console.log(error);
+      return error;
     }
   }
 
