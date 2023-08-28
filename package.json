@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "concurrently \"tsc --watch\"  \"nodemon ./dist/index.js\"",
     "build": "tsc",
-    "start": "tsc && node ./dist/index.js",
+    "start": "npm run build && node ./dist/index.js",
     "test": "mocha ./dist/test/*.js"
   },
   "author": "Ghosted34",
