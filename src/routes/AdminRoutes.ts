@@ -16,7 +16,7 @@ router.get(
   AdminController.getAllUsers
 );
 router.get(
-  "/getUser",
+  "/getUser/:id",
   authenticate,
   authorize("admin"),
   AdminController.getUserbyId

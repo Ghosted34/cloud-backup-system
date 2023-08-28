@@ -22,9 +22,9 @@ export class FileService {
     next: NextFunction
   ): Promise<void> {
     try {
-      const { file, body } = req;
+      const { file } = req;
       const { user } = req;
-      //   console.log(file, user, body);
+
       if (!file) {
         return next(new AppError("Please upload a file", 400, { error: null }));
       }
@@ -69,11 +69,8 @@ export class FileService {
       }
 
       const folder: any = await Folder.findOne({
-        where: {
-          [Op.or]: [{ id: body.folderId }, { name: body.folderName }],
-        },
+        where: { name: body.folderName },
       });
-
       if (!folder) {
         return next(
           new AppError("Please select an existing folder", 400, { error: null })

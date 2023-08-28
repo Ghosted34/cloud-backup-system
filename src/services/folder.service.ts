@@ -13,9 +13,9 @@ export class FolderService {
     next: NextFunction
   ): Promise<void> {
     try {
-      const { body } = req;
+      const { body, user } = req;
 
-      if (!body || !body.name) {
+      if (!user || !body.name) {
         return next(
           new AppError("Please input a folder name", 401, { error: null })
         );

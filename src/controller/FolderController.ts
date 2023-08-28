@@ -9,6 +9,11 @@ export class FolderController {
     logger.info("Create folder");
     logger.info(formatLog(req, "Creating folder"));
 
-    return await FolderService.createFolder(req, res, next);
+    try {
+      await FolderService.createFolder(req, res, next);
+      successResponse(res, 201, "Folder created", null);
+    } catch (error: any) {
+      return next(error);
+    }
   }
 }
