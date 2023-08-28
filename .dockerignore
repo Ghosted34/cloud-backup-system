@@ -1,2 +1,23 @@
+# Comments start with a hash symbol
+
+# Files and directories to ignore in the Docker build context
 node_modules
 npm-debug.log
+.DS_Store
+.env
+*.env
+*.log
+*.swp
+*.swo
+*.vscode
+.vscode
+.idea
+__pycache__
+
+# Exclude version control system directories
+.git
+.svn
+
+# Exclude build artifacts
+/dist
+/build

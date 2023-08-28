@@ -23,9 +23,9 @@ class App {
 
   // Configure Express middleware.
   private middleware(): void {
-    this.app.use(cookieParser());
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: false }));
+    this.app.use(cookieParser());
     this.app.use(cors());
     this.app.use(helmet());
     this.app.use(morgan("dev"));
