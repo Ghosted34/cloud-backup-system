@@ -246,12 +246,13 @@ export const deleteFile = async (
 
 export const deleteMultipleFiles = async (
   filepaths: { Key: string }[]
-): Promise<void> => {
+): Promise<any> => {
   try {
     const params = { Bucket: awsBucket, Delete: { Objects: filepaths } };
 
     await s3.send(new DeleteObjectsCommand(params));
-  } catch (error) {
+  } catch (error: any) {
     logger.error("aws error");
+    return error;
   }
 };

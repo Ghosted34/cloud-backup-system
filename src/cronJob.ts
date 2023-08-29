@@ -8,11 +8,13 @@ const deleteFiles = async () => {
 
   try {
     const unsafeFiles = await File.findAll({ where: { safe: false } });
+
     const filepaths = unsafeFiles.map((file) => ({ Key: file.key }));
     await deleteMultipleFiles(filepaths);
     await File.destroy({ where: { safe: false } });
     logger.info(" Unsafe files Deleted");
   } catch (error) {
+    logger.info(`${error}`);
     return error;
   }
 };
