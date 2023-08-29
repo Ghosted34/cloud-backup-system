@@ -11,8 +11,6 @@ export const authenticate = async (
   res: Response,
   next: NextFunction
 ) => {
-  console.log(req.cookies);
-
   try {
     let token: any;
     if (

@@ -4,7 +4,6 @@ import { File } from "../models/file.js";
 import { Folder } from "../models/folder.js";
 
 import { db, dbSSL } from "./index.js";
-console.log({ dbSSL });
 
 class Database {
   public sequelize: Sequelize | undefined;
@@ -18,13 +17,12 @@ class Database {
   }
 
   private async connectToDB() {
-    console.log(this.POSTGRES_SSL === true, dbSSL === true, 1);
     try {
       this.sequelize = new Sequelize(this.POSTGRES_DB, {
         dialect: "postgres",
         models: [User, File, Folder],
         dialectOptions: {
-          ssl: this.POSTGRES_SSL,
+          ssl: dbSSL,
           native: true,
         },
       });

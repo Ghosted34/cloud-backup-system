@@ -6,7 +6,6 @@ import {
 } from "../utils/AuthValidation.js";
 import AppError from "../utils/AppError.js";
 import { User } from "../models/user.js";
-import { sendToken } from "../utils/createToken.js";
 
 export class AuthService {
   static async signUp(

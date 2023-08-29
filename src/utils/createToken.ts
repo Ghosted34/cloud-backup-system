@@ -1,4 +1,4 @@
-import { Response } from "express";
+import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import {
   jwtSecret,
@@ -14,8 +14,9 @@ const signToken = (id: string) =>
 
 export const sendToken = (user: any, statusCode: any, res: Response) => {
   const token = signToken(user.id);
+
   const cookieOptions = {
-    expires: new Date(Date.now() + Number(cookieExpires) * 24 * 60 * 60 * 1000),
+    maxAge: Date.now() + Number(cookieExpires) * 24 * 60 * 60 * 1000, //Cookie parser, you will crumble
     httpOnly: true,
     secure: false,
   };
@@ -25,6 +26,7 @@ export const sendToken = (user: any, statusCode: any, res: Response) => {
   res.cookie("jwt", token, cookieOptions);
 
   user.password = undefined;
+
   res.status(statusCode).json({
     status: "success",
     token,

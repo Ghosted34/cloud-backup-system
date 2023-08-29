@@ -17,7 +17,23 @@ const deleteFiles = async () => {
   }
 };
 
-var job = new CronJob(
+const wakeUpCall = () => {
+  logger.info("I'm awake");
+};
+
+export const wakeUp = new CronJob(
+  cronSchedule,
+  function () {
+    wakeUpCall();
+  },
+  () => {
+    logger.info("Cron job Done, I'm awake");
+  },
+  false,
+  "Africa/Lagos"
+);
+
+export const job = new CronJob(
   cronSchedule,
   async function () {
     try {
@@ -34,5 +50,3 @@ var job = new CronJob(
   false,
   "Africa/Lagos"
 );
-
-export default job;
